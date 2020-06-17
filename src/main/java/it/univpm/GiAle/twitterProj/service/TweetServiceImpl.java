@@ -9,8 +9,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,18 +21,30 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import it.univpm.GiAle.twitterProj.filters.Filter;
-import it.univpm.GiAle.twitterProj.filters.Stats;
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
+/**
+ * Implementazione dell'interfaccia Service
+ */
 @Service
 public class TweetServiceImpl implements TweetService {
+	
+	/** ArrayList di Tweet per memorizzare i Tweet */
 	private static ArrayList<Tweet> myTweetList = new ArrayList<Tweet>();
+	
+	/**
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getTweet()
+	 */
 	@Override
-	public ArrayList<Tweet> getTweet() {
+	public ArrayList<Tweet> getTweet(){
 		// TODO Auto-generated method stub
+
 		return myTweetList;
 	}
 
+	/**
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#addTweetsArray(Tweet[])
+	 */
 	@Override
 	public void addTweetsArray(Tweet[] tweetArray) {
 		// TODO Auto-generated method stub
@@ -45,12 +55,18 @@ public class TweetServiceImpl implements TweetService {
 		}
 	}
 
+	/**
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#addJSON(String body)
+	 */
 	@Override
-	public Tweet[] addJson(String body) {
+	public Tweet[] addJSON(String body) {
 		// TODO Auto-generated method stub
 		JsonObject myObject = new Gson().fromJson(body, JsonObject.class);
 		JsonArray array = myObject.getAsJsonArray("statuses");
-		// serve per i retweet
+		/**
+		 * Se il tweet è un retweet, i dati vengono presi da retweeted_status altrimenti
+		 * non sono verosimili, spesso sono 0, perchè Twitter salva il conteggio reale nel tweet "originale"
+		 */
 		for (int i = 0; i < array.size(); i++) {
 			if (array.get(i).getAsJsonObject().has("retweeted_status")) {
 				JsonObject obj = new JsonObject();
@@ -59,13 +75,27 @@ public class TweetServiceImpl implements TweetService {
 				obj.addProperty("favorite_count", array.get(i).getAsJsonObject().get("retweeted_status").getAsJsonObject().get("favorite_count").getAsBigInteger());
 				array.set(i, obj);				
 			}
+//			if (!array.get(i).getAsJsonObject().has("favorite_count")) {
+//				//eccezione favorite count
+//			}
+//			if (!array.get(i).getAsJsonObject().has("retweet_count")) {
+//				//eccezione favorite count
+//			}
+//			if (!array.get(i).getAsJsonObject().has("favorite_count")) {
+//				//eccezione favorite count
+//			}
 		}
 		Gson GoogleSon = new Gson();
 		Tweet[] gsonArray = GoogleSon.fromJson(array, Tweet[].class);
 		return gsonArray;
 	}
 	
-	public ArrayList<Tweet> filtraggio (String body, ArrayList<Tweet> list) {
+	/**
+	 * Viene fatto il parsing del JSON dei filtri e il filed "data" serve per fare statistiche su
+	 * tutti i dati in modo da poter usare esattamente questa funzione anche per le statistiche
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#filtering(String, ArrayList)
+	 */
+	public ArrayList<Tweet> filtering (String body, ArrayList<Tweet> list) throws ParseException {
 		JsonObject gson = new Gson().fromJson(body, JsonObject.class);
 		String filterFiled = gson.get("filter_field").getAsString();
 		String filterType = gson.get("filter_type").getAsString();
@@ -78,12 +108,7 @@ public class TweetServiceImpl implements TweetService {
 			filteredList = Filter.filterByRetweet(list, filterType, param);
 		}
 		if (filterFiled.equals("time")) {
-			try {
-				filteredList = Filter.filterByTime(list, filterType, param);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			filteredList = Filter.filterByTime(list, filterType, param);
 		}
 		// serve per richiedere le statistiche su tutti i dati
 		if (filterFiled.equals("data"))
@@ -93,8 +118,11 @@ public class TweetServiceImpl implements TweetService {
 		return filteredList;
 	}
 
+	/**
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getFromTwitter(String)
+	 */
 	@Override
-	public String GetFromTwitter(String url) throws MalformedURLException, IOException {
+	public String getFromTwitter(String url) throws MalformedURLException, IOException {
 		// TODO Auto-generated method stub
 
         HttpURLConnection httpClient =
@@ -124,15 +152,19 @@ public class TweetServiceImpl implements TweetService {
             return response.toString();
 
         }
+	
 	}
 
+	/**
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getMetadata(Class myClass)
+	 */
 	@Override
-	public String getMetadata(Class<?> classe) {
+	public String getMetadata(Class<?> myClass) {
 		// TODO Auto-generated method stub
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonSchemaGenerator schemaGen = new JsonSchemaGenerator(mapper);
-			com.fasterxml.jackson.module.jsonSchema.JsonSchema schema = schemaGen.generateSchema(classe);
+			com.fasterxml.jackson.module.jsonSchema.JsonSchema schema = schemaGen.generateSchema(myClass);
 			return mapper.writeValueAsString(schema);
 		} catch (JsonProcessingException e) {
 			return e.getLocalizedMessage();

@@ -6,7 +6,13 @@ import java.util.HashMap;
 
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
+
 public class Stats {
+	/**
+	 * Classe delle statistiche (leggere la Readme per la lista completa)
+	 * @param list Lista di cui calcolare le statistiche
+	 * @return Elenco delle statistiche
+	 */
 	public static HashMap<String, Float> stats(ArrayList<Tweet> list) {
 		float mean_favorite = 0;
 		float min_favorite = list.get(0).getFavorite_count();

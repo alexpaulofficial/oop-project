@@ -1,12 +1,14 @@
 package it.univpm.GiAle.twitterProj;
-/**
- * <p>
- * <b> 
- * </p>
- */
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Main dell'app
+ * 
+ * @author Alessio Paolucci, Gian Paolo Verdolini
+ * @version 1.1 App
+ * @version 1.1 Javadoc
+ */
 @SpringBootApplication
 public class TwitterProjectApplication {
 

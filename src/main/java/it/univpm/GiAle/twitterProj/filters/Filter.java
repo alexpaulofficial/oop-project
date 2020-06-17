@@ -11,7 +11,21 @@ import com.google.gson.JsonElement;
 
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
+/**
+ * Classe che gestisce i Filtri
+ * 
+ * @version 1.1
+ */
 public class Filter {
+	/**
+	 * Filtra in base ai likes (favorite_count)
+	 * 
+	 * Si poteva separare in più funzioni i vari filtri interni al for per avere un codice più pulito
+	 * ma sarebbe stato molto più lungo e in parte inutile, dato che la complessità computazionale e' la stessa
+	 *
+	 * @param list La lista da filtrare
+	 * @param filter Il JSON di richiesta dei filtri
+	 * @param param parametri dei filtri
 	 * @return Lista filtrata
 	 */
 	public static ArrayList<Tweet> filterByLikes(ArrayList<Tweet> list, String filter, JsonElement param) {
@@ -22,10 +36,10 @@ public class Filter {
 				filteredList.add(list.get(i));
 			}
 			if (filter.equals("$gte") && list.get(i).getFavorite_count() >= param.getAsInt()) {
-				listaFiltrata.add(list.get(i));
+				filteredList.add(list.get(i));
 			}
 			if (filter.equals("$lt") && list.get(i).getFavorite_count() < param.getAsInt()) {
-				listaFiltrata.add(list.get(i));
+				filteredList.add(list.get(i));
 			}
 			if (filter.equals("$lte") && list.get(i).getFavorite_count() <= param.getAsInt()) {
 				filteredList.add(list.get(i));
