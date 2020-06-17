@@ -16,56 +16,56 @@ public class Stats {
 	 * @return Elenco delle statistiche
 	 */
 	public static HashMap<String, Float> stats(ArrayList<Tweet> list) {
-		float mean_favorite = 0;
-		float min_favorite = list.get(0).getFavorite_count();
-		float max_favorite = -1;
-		float mean_retweet = 0;
-		float min_retweet = list.get(0).getRetweet_count();
-		float max_retweet = -1;
-		float variance_likes = 0;
-		float variance_retweets = 0;
+		float meanFavorite = 0;
+		float minFavorite = list.get(0).getFavorite_count();
+		float maxFavorite = -1;
+		float meanRetweet = 0;
+		float minRetweet = list.get(0).getRetweet_count();
+		float maxRetweet = -1;
+		float varianceLikes = 0;
+		float varianceRetweets = 0;
 
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getFavorite_count() > max_favorite) {
-				max_favorite = list.get(i).getFavorite_count();
+			if (list.get(i).getFavorite_count() > maxFavorite) {
+				maxFavorite = list.get(i).getFavorite_count();
 			}
-			if (list.get(i).getFavorite_count() < min_favorite) {
-				min_favorite = list.get(i).getFavorite_count();
+			if (list.get(i).getFavorite_count() < minFavorite) {
+				minFavorite = list.get(i).getFavorite_count();
 			}
-			if (list.get(i).getRetweet_count() > max_retweet) {
-				max_retweet= list.get(i).getRetweet_count();
+			if (list.get(i).getRetweet_count() > maxRetweet) {
+				maxRetweet= list.get(i).getRetweet_count();
 			}
-			if (list.get(i).getRetweet_count() < min_retweet) {
-				min_retweet = list.get(i).getRetweet_count();
+			if (list.get(i).getRetweet_count() < minRetweet) {
+				minRetweet = list.get(i).getRetweet_count();
 			}
-			mean_favorite += list.get(i).getFavorite_count();
-			mean_retweet += list.get(i).getRetweet_count();
+			meanFavorite += list.get(i).getFavorite_count();
+			meanRetweet += list.get(i).getRetweet_count();
 		}
-		mean_favorite = mean_favorite / list.size();
-		mean_retweet = mean_retweet / list.size();
+		meanFavorite = meanFavorite / list.size();
+		meanRetweet = meanRetweet / list.size();
 		
 		// ciclo for variaza
 		for (int i = 0; i < list.size(); i++) {
-			variance_likes += Math.pow(((float)list.get(i).getFavorite_count() - mean_favorite), 2);
-			variance_retweets += Math.pow(((float)list.get(i).getRetweet_count() - mean_retweet), 2);
+			varianceLikes += Math.pow(((float)list.get(i).getFavorite_count() - meanFavorite), 2);
+			varianceRetweets += Math.pow(((float)list.get(i).getRetweet_count() - meanRetweet), 2);
 		}
-		variance_likes = variance_likes / list.size();
-		variance_retweets = variance_retweets / list.size();
+		varianceLikes = varianceLikes / list.size();
+		varianceRetweets = varianceRetweets / list.size();
 		
-		float standard_deviation_likes = (float) Math.sqrt(variance_likes);
-		float standard_deviation_retweets = (float) Math.sqrt(variance_retweets);
+		float standardDeviationLikes = (float) Math.sqrt(varianceLikes);
+		float standardDeviationRetweets = (float) Math.sqrt(varianceRetweets);
 		
 		HashMap<String, Float> statMap = new HashMap<String, Float>();
-		statMap.put("media_favorite", mean_favorite);
-		statMap.put("min_favorite", min_favorite);
-		statMap.put("max_favorite", max_favorite);
-		statMap.put("media_retweet", mean_retweet);
-		statMap.put("min_retweet", min_retweet);
-		statMap.put("max_retweet", max_retweet);
-		statMap.put("variance_likes", variance_likes);
-		statMap.put("variance_retweet", variance_retweets);
-		statMap.put("standard_devation_likes", standard_deviation_likes);
-		statMap.put("standard_devation_retweet", standard_deviation_retweets);
+		statMap.put("Media dei Likes", meanFavorite);
+		statMap.put("Minimo dei Likes", minFavorite);
+		statMap.put("Massimo dei Likes", maxFavorite);
+		statMap.put("Media dei Retweets", meanRetweet);
+		statMap.put("Minimo dei Retweets", minRetweet);
+		statMap.put("Massimo dei Retweets", maxRetweet);
+		statMap.put("Varianza dei Likes", varianceLikes);
+		statMap.put("Varianza dei Retweet", varianceRetweets);
+		statMap.put("Deviazione Standard dei Likes", standardDeviationLikes);
+		statMap.put("Deviazione Standard dei Retweets", standardDeviationRetweets);
 		
 		return statMap;		
 		
