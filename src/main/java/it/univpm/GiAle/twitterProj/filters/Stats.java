@@ -6,7 +6,9 @@ import java.util.HashMap;
 
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
-
+/*
+ * Classe delle statistiche
+ */
 public class Stats {
 	/**
 	 * Classe delle statistiche (leggere la Readme per la lista completa)
