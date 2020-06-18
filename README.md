@@ -1,5 +1,5 @@
 <div align="center">
-<img widht="600" height="600" src=".github/logo.png">
+<img widht="400" height="400" src=".github/logo.png">
 </div>
 
 
@@ -13,13 +13,13 @@ In dettaglio l’applicazione permette di:
 
 # Tabella dei contenuti
 
-- [Rotte dell'applicazione](#rotte-dell'applicazione)
+- [Rotte dell'applicazione](#rotte-dellapplicazione)
 - [Formato dati](#formato-dati)
   - [Formato dei Tweet restituiti](#formato-dei-tweet-restituiti)
   - [Formato delle statistiche](#formato-delle-statistiche)
 - [Filtri](#filtri)
-- [Front end](#front-end)
-- [UML](#)
+- [Front end](#frontend)
+- [UML](#uml)
 
 # Rotte dell'applicazione 
 Di seguito tutte le richieste possibili tramite chiamate all’indirizzo http://localhost:8080
@@ -52,6 +52,7 @@ Effettuando una richiesta GET su questa rotta, specificando l'area geografica e 
 
 ## Formato dei Tweet restituiti
 Esempio di un solo Tweet:
+```
 {
     "created_at": "Sat Jun 13 15:32:41 +0000 2020",
         "id": 1271827840556728320,
@@ -59,6 +60,7 @@ Esempio di un solo Tweet:
         "retweet_count": 6,
         "favorite_count": 8
 }
+```
 In particolare:
 *	created_at data di creazione del Tweet in formato "EEE MMM dd HH:mm:ss ZZZZZ yyyy"
 *	id codice ID identificativo di ogni Tweet
@@ -108,8 +110,10 @@ Filtri
 Statistica
  
 # UML
-Class Diagram
-
+Diagramma Use Case
+<div align="right">
+<img widht="400" height="400" src="UMLDiagram/UseCase.png">
+</div>
 Use Case Diagram
 
 Activity Diagram
