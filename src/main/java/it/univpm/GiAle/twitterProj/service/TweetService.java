@@ -43,8 +43,10 @@ public interface TweetService {
 	public abstract String getMetadata(Class<?> myClass);
 	
 	/**
-	 * Filtraggio dei dati. Restituisce un ArrayList di Tweet a partire dai tipi di filtri passati
-	 * (per fare più filtri in contemporanea, forse sarebbe meglio separare il controllo del JSON)
+	 * Filtraggio dei dati
+	 * 
+	 * <p>Restituisce un ArrayList di Tweet a partire dai tipi di filtri passati
+	 * (per fare più filtri in contemporanea, sarebbe meglio separare il controllo del JSON) </p>
 	 * 
 	 * @param body JSON dei Filtri
 	 * @param list Lista da filtrare

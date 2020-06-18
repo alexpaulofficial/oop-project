@@ -41,10 +41,10 @@ public class AppController {
 	TweetService service;
 
 	/**
-	 * Richiesta GET all'indirizzo "/data" per visualizzare i tweet memorizzati
+	 * Richiesta GET all'indirizzo "/data" per visualizzare i Tweet memorizzati
 	 * 
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getTweet()
-	 * @return lista di tutti i tweet
+	 * @return Lista di tutti i Tweet
 	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	public ResponseEntity<Object> getTweet() {
@@ -54,7 +54,7 @@ public class AppController {
 	/**
 	 * Memorizza il JSON che viene passato nel body
 	 *
-	 * @see it.univpm.GiAle.twitterProj.service.TweetService#addJSON(String body)
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#addJSON(String)
 	 * @param body Il body passato dal client
 	 * @return Messaggio di avvenuto inserimento
 	 */
@@ -68,21 +68,21 @@ public class AppController {
 	}
 	
 	/**
-	 * Scarica i dati dal link inserito nel body
+	 * Scarica i dati dal link inserito nel body (API Twitter)
 	 *
-	 * @see it.univpm.GiAle.twitterProj.service.TweetService#addJSON(String body)
-	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getFromTwitter(String url)
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#addJSON(String)
+	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getFromTwitter(String)
 	 * @param url URL in formato completo dell'API Twitter
-	 * @return Messaggio di download avvenuto e avvenuta memorizzazione
-	 * @throws MalformedURLException se l'URL non è scritto bene
-	 * @throws IOException segnala un problema I/O 
+	 * @return Messaggio di avvenuto caricamento da Twitter
+	 * @throws MalformedURLException se l'URL non è corretto
+	 * @throws IOException segnala un problema I/O
 	 */
 	@PostMapping("/data/twitter")
 	public ResponseEntity<Object> postFromTwitter(@RequestBody String url) throws MalformedURLException, IOException {
 		
 		service.addTweetsArray(service.addJSON(service.getFromTwitter(url)));
 		return new ResponseEntity<>(
-				"Tweet scaricati correttamente da twitter. Per verificare, fare una richiesta GET all'indirizzo /data",
+				"Tweet scaricati correttamente da Twitter. Per verificare, fare una richiesta GET all'indirizzo /data",
 				HttpStatus.OK);
 	}
 
@@ -90,7 +90,7 @@ public class AppController {
 	 * Filtraggio dei dati in base al JSON inserito nel body
 	 *
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#filtering(String, ArrayList)
-	 * @param bodyFilter Il filtro richiesto in formato JSON
+	 * @param bodyFilter Il filtro richiesto in formato JSON (come Stringa)
 	 * @return Elenco dei tweet filtrati
 	 * @throws ParseException  nel caso del filtro della data con formato sbagliato
 	 */
@@ -101,7 +101,7 @@ public class AppController {
 	}
 
 	/**
-	 * Statistiche dei dati richiesti dal JSON inserito nel body
+	 * Statistiche dei dati richiesti dal JSON inserito nel body (scritto come i Filtri)
 	 *
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#filtering(String, ArrayList)
 	 * @param bodyFilter Statistiche richieste scritte in formato JSON (come i filtri)

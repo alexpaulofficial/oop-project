@@ -25,6 +25,7 @@ import it.univpm.GiAle.twitterProj.model.Tweet;
 
 /**
  * Implementazione dell'interfaccia Service
+ * @see it.univpm.GiAle.twitterProj.service.TweetService
  */
 @Service
 public class TweetServiceImpl implements TweetService {
@@ -93,6 +94,7 @@ public class TweetServiceImpl implements TweetService {
 	/**
 	 * Viene fatto il parsing del JSON dei filtri e il filed "data" serve per fare statistiche su
 	 * tutti i dati in modo da poter usare esattamente questa funzione anche per le statistiche
+	 * 
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#filtering(String, ArrayList)
 	 */
 	public ArrayList<Tweet> filtering (String body, ArrayList<Tweet> list) throws ParseException {

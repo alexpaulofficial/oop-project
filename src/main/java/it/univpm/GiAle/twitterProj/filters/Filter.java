@@ -12,20 +12,20 @@ import com.google.gson.JsonElement;
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
 /**
- * Classe che gestisce i Filtri
+ * Classe che gestisce i filtri
  * 
  * @version 1.1
  */
 public class Filter {
 	/**
-	 * Filtra in base ai likes (favorite_count)
+	 * Filtra in base ai Likes (favorite_count)
 	 * 
-	 * Si poteva separare in più funzioni i vari filtri interni al for per avere un codice più pulito
-	 * ma sarebbe stato molto più lungo e in parte inutile, dato che la complessità computazionale e' la stessa
+	 * <p>Si poteva separare in più funzioni i vari filtri interni al for per avere un codice più pulito
+	 * ma sarebbe stato molto più lungo e inutile dato che la complessità computazionale è la stessa </p>
 	 *
 	 * @param list La lista da filtrare
 	 * @param filter Il JSON di richiesta dei filtri
-	 * @param param parametri dei filtri
+	 * @param param Parametri dei filtri
 	 * @return Lista filtrata
 	 */
 	public static ArrayList<Tweet> filterByLikes(ArrayList<Tweet> list, String filter, JsonElement param) {
@@ -49,7 +49,7 @@ public class Filter {
 					// eccezione
 					return null;
 				} else {
-					/*
+					/**
 					 * Se sono inseriti in ordine errato (prima un paramatro maggiore e poi un minore) viene
 					 * invertito il controllo
 					 */
@@ -71,11 +71,11 @@ public class Filter {
 	}
 
 	/**
-	 * Filtra in base ai retweets (retweet_count)
+	 * Filtra in base ai Retweets (retweet_count)
 	 * 
 	 * @param list La lista da filtrare
 	 * @param filter Il JSON di richiesta dei filtri
-	 * @param param parametri dei filtri
+	 * @param param Parametri dei filtri
 	 * @return Lista filtrata
 	 */
 	public static ArrayList<Tweet> filterByRetweet(ArrayList<Tweet> list, String filter, JsonElement param) {
@@ -119,8 +119,8 @@ public class Filter {
 	/**
 	 * Filtra in base alla data di creazione del Tweet
 	 * 
-	 * Da notare che nel filtro gte si considera il giorno dato incluso Nel filtro
-	 * gt si considera il giorno dopo (lo stesso per lt e lte)
+	 * <p>Da notare che nel filtro gte si considera il giorno dato incluso. Nel filtro
+	 * gt si considera il giorno dopo (lo stesso per lt e lte) </p>
 	 *
 	 * @param list La lista da filtrare
 	 * @param filter Il JSON di richiesta dei filtri
@@ -132,7 +132,7 @@ public class Filter {
 			throws ParseException {
 		// TODO Auto-generated method stub
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
-		/*
+		/**
 		 * E' stato scelto questo formato per il datepicker di Bootstrap per
 		 * l'interfaccia grafica
 		 */
@@ -153,8 +153,8 @@ public class Filter {
 			for (int i = 0; i < list.size(); i++) {
 				Date dateFilter;
 				dateFilter = sf.parse(param.getAsString());
-				/*
-				 * Per aumentare il giorno (e diminuire) si utilizza la classe calendar
+				/**
+				 * Per aumentare il giorno (e diminuire) si utilizza la classe Calendar
 				 */
 
 				Calendar dateAfter = Calendar.getInstance();
@@ -199,7 +199,7 @@ public class Filter {
 						dateFilter1 = sf.parse(param.getAsJsonArray().get(0).getAsString());
 						Date dateFilter2 = sf.parse(param.getAsJsonArray().get(1).getAsString());
 						/**
-						 * Se le date da filtrare sono inserite in verso sbagliato si risolve
+						 * Se le date da filtrare sono inserite in verso decrescente si risolve
 						 * invertendole
 						 */
 						if (dateFilter1.compareTo(dateFilter2) > 0) {

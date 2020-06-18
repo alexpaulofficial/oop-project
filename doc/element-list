@@ -3,3 +3,4 @@ it.univpm.GiAle.twitterProj.controller
 it.univpm.GiAle.twitterProj.filters
 it.univpm.GiAle.twitterProj.model
 it.univpm.GiAle.twitterProj.service
+it.univpm.GiAle.twitterProj.tests

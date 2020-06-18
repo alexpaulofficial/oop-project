@@ -68,7 +68,7 @@ public class Tweet {
 	/**
 	 * Setta il favorite count.
 	 *
-	 * @param favorite_count Il nuovofavorite count
+	 * @param favorite_count Il nuovo favorite count
 	 */
 	public void setFavorite_count(int favorite_count) {
 		this.favorite_count = favorite_count;
