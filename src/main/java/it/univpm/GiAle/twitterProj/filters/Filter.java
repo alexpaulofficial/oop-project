@@ -46,7 +46,7 @@ public class Filter {
 				filteredList.add(list.get(i));
 			}
 			if (filter.equals("$bt")) {
-				if (!param.isJsonArray() && param.getAsJsonArray().size() != 2) {
+				if (!param.isJsonArray() || param.getAsJsonArray().size() != 2) {
 					/**Eccezione nel caso in cui sia sbagliato il filtro $bt*/
 					throw new WrongFilterException("Filtro $bt errato, sono richiesti 2 valori");
 				} else {
