@@ -25,7 +25,8 @@ class TestProj {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
+	
+	
 	@Test
 	public void test1() throws GetTweetException, WrongFilterException {
 		tsi = new TweetServiceImpl();
