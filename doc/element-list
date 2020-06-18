@@ -1,5 +1,6 @@
 it.univpm.GiAle.twitterProj
 it.univpm.GiAle.twitterProj.controller
+it.univpm.GiAle.twitterProj.exception
 it.univpm.GiAle.twitterProj.filters
 it.univpm.GiAle.twitterProj.model
 it.univpm.GiAle.twitterProj.service

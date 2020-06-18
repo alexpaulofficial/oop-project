@@ -1,5 +1,6 @@
 package it.univpm.GiAle.twitterProj.tests;
 
+
 /**
  * Questo test serve per verificare che parta l' eccezione nel caso in cui venga inserito 
  * un nome sbagliato nel filtro
@@ -7,6 +8,7 @@ package it.univpm.GiAle.twitterProj.tests;
  */
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -16,11 +18,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.univpm.GiAle.twitterProj.exception.WrongFilterException;
 import it.univpm.GiAle.twitterProj.exception.GetTweetException;
-import it.univpm.GiAle.twitterProj.service.TweetService;
 import it.univpm.GiAle.twitterProj.service.TweetServiceImpl;
 import it.univpm.GiAle.twitterProj.model.Tweet;
 import java.util.ArrayList;
 
+/**
+ * Questo test serve per verificare che parta l'eccezione nel caso in cui venga inserito
+ * un nome sbagliato nel caso del filtraggio
+ * @author Verdolini Gian Paolo, Paolucci Alessio
+ */
 class TestSecond {
 	TweetServiceImpl prova;
 
@@ -38,7 +44,7 @@ class TestSecond {
 		
 		prova.addJSON(prova.getFromTwitter("https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?from=UnivPoliMarche&count=100"));
 	/**
-	 *  Si crea una lista fittizia perchè altrimenti partirebbe l' errore 
+	 *  Si crea una lista fittizia perchè altrimenti partirebbe l'errore 
 	 */
 		String body = "{\r\n" + 
 				"	\"filter_field\":\"likes\",\r\n" + 

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 
  * @author Alessio Paolucci, Gian Paolo Verdolini
  * @version 1.1 App
- * @version 1.2 Javadoc
+ * @version 1.3 Javadoc
  */
 @SpringBootApplication
 public class TwitterProjectApplication {
