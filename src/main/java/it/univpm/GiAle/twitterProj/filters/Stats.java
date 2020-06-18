@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
-/*
- * Classe delle statistiche
+/**
+ * Classe per il calcolo delle statistiche
  */
 public class Stats {
 	/**
@@ -16,10 +16,10 @@ public class Stats {
 	 * @return Elenco delle statistiche
 	 */
 	public static HashMap<String, Float> stats(ArrayList<Tweet> list) {
-		float meanFavorite = 0;
+		int meanFavorite = 0;
 		float minFavorite = list.get(0).getFavorite_count();
 		float maxFavorite = -1;
-		float meanRetweet = 0;
+		int meanRetweet = 0;
 		float minRetweet = list.get(0).getRetweet_count();
 		float maxRetweet = -1;
 		float varianceLikes = 0;
@@ -56,10 +56,10 @@ public class Stats {
 		float standardDeviationRetweets = (float) Math.sqrt(varianceRetweets);
 		
 		HashMap<String, Float> statMap = new HashMap<String, Float>();
-		statMap.put("Media dei Likes", meanFavorite);
+		statMap.put("Media dei Likes", (float)meanFavorite);
 		statMap.put("Minimo dei Likes", minFavorite);
 		statMap.put("Massimo dei Likes", maxFavorite);
-		statMap.put("Media dei Retweets", meanRetweet);
+		statMap.put("Media dei Retweets", (float) meanRetweet);
 		statMap.put("Minimo dei Retweets", minRetweet);
 		statMap.put("Massimo dei Retweets", maxRetweet);
 		statMap.put("Varianza dei Likes", varianceLikes);

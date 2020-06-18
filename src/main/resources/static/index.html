@@ -50,10 +50,10 @@
   </button>
     </div>
     <form id="searchForm" class="bg-dark d-flex w-100 shadow">
-        <input class="form-control form-control-dark d-flex" id="search" name="search" type="text" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-dark d-flex" id="search" name="search" type="text" placeholder="Link Twitter API" aria-label="Search">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <button class="btn btn-danger" type="submit">Search</button>
+                <button class="btn btn-danger" type="submit">Scarica</button>
             </li>
         </ul>
 
@@ -74,17 +74,17 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="index.html">
-                            <span data-feather="home"></span> Data <span class="sr-only">(current)</span>
+                            <span data-feather="home"></span> Dati <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="filter.html">
-                            <span data-feather="file"></span> Filters
+                            <span data-feather="file"></span> Filtri
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="stats.html">
-                            <span data-feather="shopping-cart"></span> Stats
+                            <span data-feather="shopping-cart"></span> Statistiche
                         </a>
                     </li>
                 </ul>
@@ -94,7 +94,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <span>
-          <h1 class="h2" style="padding-top: 15px;">Tutti i tweet scaricati</h1>
+          <h1 class="h2" style="padding-top: 15px;">Tutti i Tweet</h1>
         </span>
                 <div class="btn-toolbar mb-2 mb-md-0">
                 </div>
@@ -103,6 +103,7 @@
             <table class="table table-dark">
                 <thead class="thead-light">
                     <tr>
+                        <th>#</th>
                         <th>ID</th>
                         <th>Testo</th>
                         <th>Creato il</th>
@@ -115,8 +116,10 @@
             <script>
                 $.getJSON("http://localhost:8080/data", function(data) {
                     var items = [];
+                    var conta = 1;
                     $.each(data, function(key, val) {
                         items.push("<tr>");
+                        items.push("<td id=''" + "#" + "''>" + conta + "</td>");
                         items.push("<td id=''" + key + "''>" + val.id + "</td>");
                         items.push("<td id=''" + key + "''>" + val.text + "</td>");
                         items.push("<td id=''" + key + "''>" + Intl.DateTimeFormat('it', {
@@ -131,6 +134,7 @@
                         items.push("<td id=''" + key + "''>" + val.favorite_count + "</td>");
                         items.push("<td id=''" + key + "''>" + val.retweet_count + "</td>");
                         items.push("</tr>");
+                        conta ++;
                     });
                     $("<tbody/>", {
                         html: items.join("")
@@ -141,9 +145,9 @@
             <footer class="page-footer font-small">
 
                 <!-- Copyright -->
-                <div class="footer-copyright text-center py-3">© 2020 Copyright - Graphics by
-                    <a class="h20" href="https://alexpaulofficial.com/"> Alex Paul</a> - Based on
-                    <a class="h20" href="https://github.com/alexpaulofficial/oop-project"> Twitter GianAle's API</a>
+                <div class="footer-copyright text-center py-3">© 2020 Copyright - Grafica by
+                    <a class="h20" href="https://alexpaulofficial.com/"> Alex Paul</a> - Basato su
+                    <a class="h20" href="https://github.com/alexpaulofficial/oop-project"> Twitter GiAle's API</a>
                 </div>
                 <!-- Copyright -->
 
