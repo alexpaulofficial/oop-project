@@ -18,6 +18,7 @@ public interface TweetService {
 	 * Restituisce tutti i Tweet inseriti
 	 *
 	 * @return ArrayList dei Tweet
+	 * @throws GetTweetException Caso lista vuota
 	 */
 	public abstract ArrayList<Tweet> getTweet() throws GetTweetException; 
 	
@@ -53,7 +54,8 @@ public interface TweetService {
 	 * @param body JSON dei Filtri
 	 * @param list Lista da filtrare
 	 * @return Lista filtrata
-	 * @throws ParseException nel caso di filtraggio per Data
+	 * @throws ParseException Caso di filtraggio per Data
+	 * @throws WrongFilterException Caso filtro errato
 	 */
 	public abstract ArrayList<Tweet> filtering (String body, ArrayList<Tweet> list) throws ParseException, WrongFilterException;
 	

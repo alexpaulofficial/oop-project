@@ -12,7 +12,7 @@ private static final long serialVersionUID = 1L;
 
 	/**
 	 * Viene stampato il messaggio d' errore
-	 * @return String
+	 * @param message Messaggio di errore personalizzato
 	 */
 
 		

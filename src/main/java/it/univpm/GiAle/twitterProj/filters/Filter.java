@@ -28,6 +28,7 @@ public class Filter {
 	 * @param filter Il JSON di richiesta dei filtri
 	 * @param param Parametri dei filtri
 	 * @return Lista filtrata
+	 * @throws WrongFilterException Caso filtro errato
 	 */
 	public static ArrayList<Tweet> filterByLikes(ArrayList<Tweet> list, String filter, JsonElement param) throws WrongFilterException {
 		// TODO Auto-generated method stub
@@ -46,7 +47,7 @@ public class Filter {
 				filteredList.add(list.get(i));
 			}
 			if (filter.equals("$bt")) {
-				if (!param.isJsonArray() && param.getAsJsonArray().size() != 2) {
+				if (!param.isJsonArray() || param.getAsJsonArray().size() != 2) {
 					/**Eccezione nel caso in cui sia sbagliato il filtro $bt*/
 					throw new WrongFilterException("Filtro $bt errato, sono richiesti 2 valori");
 				} else {
@@ -78,6 +79,7 @@ public class Filter {
 	 * @param filter Il JSON di richiesta dei filtri
 	 * @param param Parametri dei filtri
 	 * @return Lista filtrata
+	 * @throws WrongFilterException se il filtro è errato
 	 */
 	public static ArrayList<Tweet> filterByRetweet(ArrayList<Tweet> list, String filter, JsonElement param) throws WrongFilterException {
 		// TODO Auto-generated method stub
@@ -96,7 +98,7 @@ public class Filter {
 				filteredList.add(list.get(i));
 			}
 			if (filter.equals("$bt")) {
-				if (!param.isJsonArray()) {
+				if (!param.isJsonArray() || param.getAsJsonArray().size() != 2) {
 					/**Eccezione nel caso in cui sia sbagliato il filtro $bt*/
 					throw new WrongFilterException("Filtro $bt errato, sono richiesti 2 valori");
 				} else {
@@ -127,7 +129,8 @@ public class Filter {
 	 * @param filter Il JSON di richiesta dei filtri
 	 * @param param I parametri dei filtri
 	 * @return Lista filtrata
-	 * @throws ParseException nel caso di errore nel parsing della data
+	 * @throws ParseException Caso di errore nel parsing della data
+	 * @throws WrongFilterException Caso di filtro errato
 	 */
 	public static ArrayList<Tweet> filterByTime(ArrayList<Tweet> list, String filter, JsonElement param)
 			throws ParseException, WrongFilterException {
@@ -191,7 +194,7 @@ public class Filter {
 		}
 		if (filter.equals("$bt")) {
 			for (int i = 0; i < list.size(); i++) {
-				if (!param.isJsonArray()) {
+				if (!param.isJsonArray() || param.getAsJsonArray().size() != 2) {
 					/**Eccezione in cui il filtro $bt non sia corretto*/
 					throw new WrongFilterException("Filtro $bt errato, sono richiesti 2 valori");
 				} else {

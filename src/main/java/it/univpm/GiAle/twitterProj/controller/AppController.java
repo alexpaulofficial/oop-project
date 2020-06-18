@@ -46,6 +46,7 @@ public class AppController {
 	 * Richiesta GET all'indirizzo "/data" per visualizzare i Tweet memorizzati
 	 * 
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getTweet()
+	 * @throws GetTweetException Caso lista vuota
      * @return lista di tutti i tweet
 	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
@@ -94,9 +95,9 @@ public class AppController {
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#filtering(String, ArrayList)
 	 * @param bodyFilter Il filtro richiesto in formato JSON (come Stringa)
 	 * @return Elenco dei tweet filtrati
-	 * @throws ParseException  nel caso del filtro della data con formato sbagliato
-	 * @throws GetTweetException 
-	 * @throws WrongFilterException 
+	 * @throws ParseException  Caso del filtro della data con formato sbagliato
+	 * @throws GetTweetException Caso lista vuota
+	 * @throws WrongFilterException Caso filtro errato
 	 */
 	@PostMapping("/data/filter")
 	public ResponseEntity<Object> filtering(@RequestBody String bodyFilter) throws ParseException, WrongFilterException, GetTweetException {
@@ -110,9 +111,9 @@ public class AppController {
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#filtering(String, ArrayList)
 	 * @param bodyFilter Statistiche richieste scritte in formato JSON (come i filtri)
 	 * @return Elenco delle statistiche
-	 * @throws ParseException nel caso di filtro per Data
-	 * @throws GetTweetException 
-	 * @throws WrongFilterException 
+	 * @throws ParseException Caso di filtro per Data (errore nella data)
+	 * @throws GetTweetException Caso lista vuota 
+	 * @throws WrongFilterException Caso filtro errato
 	 */
 	@PostMapping("/data/stats")
 	public ResponseEntity<Object> stats(@RequestBody String bodyFilter) throws ParseException, WrongFilterException, GetTweetException {
