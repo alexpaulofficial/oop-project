@@ -1,5 +1,5 @@
 <div align="center">
-<img widht="400" height="400" src=".github/logo.png">
+<img widht="500" height="500" src=".github/logo.png">
 </div>
 
 
@@ -32,21 +32,22 @@ Interfaccia Grafica (link)
 
 Rotta in cui è possibile accedere ai Meta Data della classe Tweet (vedi formato)
 
->  /data
+> **GET**  /data
 
 Restituisce un JSON di tutti i dati inseriti. Se la lista è vuota viene lanciata un’eccezione (GetTweetException) link
 
-POST /data
+> **POST** /data
 
 E’ possibile caricare un JSON di dati passato per body. 
 ATTENZIONE! Naturalmente deve essere inserito un JSON ben formattato (se hai dei dubbi visita questo sito: https://jsonformatter.curiousconcept.com/ o simili). Nel caso in cui non fossero presenti i vari campi del Tweet richiesti (è possibile vedere quali sono tramite MetaData) verranno memorizzati come 0!
 
-POST /data/twitter
+> **POST** /data/twitter
 
 Scarica i dati dall’API di Twitter utilizzando l’URL completo inserito nel body (Es. https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?from=realDonaldTrump=&count=50)
 
-GET /
-Effettuando una richiesta GET su questa rotta, specificando l'area geografica e l'unità di misura, è possibile ottenere delle specifiche sul singolo dato, andando a fare tutte le operazioni statistiche sui vari sussidi ricevuti dall'anno 2000 all'anno 2017. Vista la natura della statistica in questo caso non è previsto l'utilizzo di filtri
+> **GET** /
+
+
 
 # Formato dati
 
@@ -89,34 +90,48 @@ Le statistiche possono invece essere effettuate soltanto sull'anno specifico opp
 # Filtri
 Il filtro presente nel corpo della richiesta POST per filtrare i dati è una stringa in formato JSON, contenente degli oggetti dotati della seguente struttura:
 
-
+```
 {
     "filter_field": "likes",
     "filter_type": "$gt",
     "parameters": 10
 }
-
+```
 ATTENZIONE! Il formato della Data deve essere di questo tipo: "MMM dd, yyyy, HH:mm:ss"
 I valori presenti come dato su cui eseguire il filtro possono essere delle stringhe, dei valori numerici oppure (nel caso degli ultimi tre operatori sopra specificati) un array contenente più valori dello stesso tipo.
 
-# Frontend
+### Tabella con tutti i filtri disponibili
+
+# Front-end
 Al fine di semplificare l'operazione di filtro e l'esecuzione delle statistiche, è stato realizzato insieme all'applicazione un'interfaccia grafica, accessibile dalla homepage del servizio, che comunicando con l'API descritta sopra mette a disposizione tutte le operazioni che offre senza l'utilizzo di linguaggi di programmazione e/o tool appositi. Il frontend è stato realizzato con il framework Vue.js, che ci ha permesso una realizzazione veloce ed efficiente del sito.
-Dati
- 
+## Dati
 
-Filtri
- 
+<div align="left">
+<img widht="400" height="400" src="FrontEnd/readme/dati.png">
+</div>
 
-Statistica
- 
-# UML
+## Filtri
+![](FrontEnd/readme/filtri.gif)
+
+## Statistiche
+<div align="left">
+<img widht="400" height="400" src="FrontEnd/readme/statistiche.png">
+</div>
+
+# Diagrammi UML
 Diagramma Use Case
-<div align="right">
+<div align="left">
 <img widht="400" height="400" src="UMLDiagram/UseCase.png">
 </div>
-Use Case Diagram
-
-Activity Diagram
 
 Sequence Diagram
+
+# Miglioramenti
+- Posibilità di fare più filtri
+- 
+# Autori
+
+## Suddivisione lavori
+
+
 
