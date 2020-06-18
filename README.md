@@ -1,5 +1,8 @@
-# Twitter Project
-Progetto di Programmazione a Oggetti - UNIVPM Ingegneria Informatica e Automazione A.A. 19/20 
+<h1 align="center">Twitter Project</h1>
+ 
+<div align="center">
+<img widht="256" height="256" src=".github/logo.png">
+</div>
 
 | Type | Description |
 | ------ | --------|
