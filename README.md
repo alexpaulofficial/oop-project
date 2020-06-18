@@ -15,7 +15,7 @@ In dettaglio l’applicazione permette di:
 
 - [Introduzione](#introduzione)
 - [Rotte dell'applicazione](#rotte-dellapplicazione)
-- [Formato dati](#formato-dati)
+- [Formato dati](#formato-dati-in-json)
   - [Formato dei Tweet restituiti](#formato-dei-tweet-restituiti)
   - [Formato delle statistiche](#formato-statistiche)
 - [Filtri](#filtri)
@@ -63,26 +63,26 @@ Rotta in cui è possibile accedere ai metadati della classe Tweet. I metadati so
 
 > **GET**  /data
 
-Restituisce un JSON di tutti i dati memorizzati. Se la lista è vuota viene lanciata l’eccezione [GetTweetException](#eccezioni)
+Restituisce un JSON di tutti i dati memorizzati. Se la lista è vuota viene lanciata l’eccezione [GetTweetException](#eccezioni).
 
 > **POST** /data
 
 E’ possibile caricare un JSON di Tweet passato per body. 
-**ATTENZIONE!** Naturalmente deve essere inserito un JSON ben formattato (è possibile verificarlo in questo sito: https://jsonformatter.curiousconcept.com/ o simili). Nel caso in cui non fossero presenti i vari campi del Tweet richiesti (è possibile vedere quali sono tramite `/metadata`) verranno memorizzati come null **senza però dare errore!**
+**ATTENZIONE!** Naturalmente deve essere inserito un JSON ben formattato (è possibile verificarlo in questo sito: https://jsonformatter.curiousconcept.com/ o simili). Nel caso in cui non fossero presenti i vari campi del Tweet richiesti (è possibile vedere quali sono tramite `/metadata`) verranno memorizzati come null **senza però dare errore!**.
 
 > **POST** /data/twitter
 
-Scarica i dati dall’API di Twitter utilizzando l’URL completo inserito nel body (Es. https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?from=realDonaldTrump=&count=50)
+Scarica i dati dall’API di Twitter utilizzando l’URL completo inserito nel body (Es. https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?from=realDonaldTrump=&count=50).
 
 > **POST** /data/filter
 
-Indirizzo per la richiesta di filtraggio dati ([Filtri](#filtri))
+Indirizzo per la richiesta di filtraggio dati ([Filtri](#filtri)).
 
 > **POST** /data/stats
 
-Indirizzo per la richiesta delle statistiche ([Statistiche](#statistiche))
+Indirizzo per la richiesta delle statistiche ([Statistiche](#statistiche)).
 
-Il motivo della scelta di fare le **POST** è dovuto dal fatto che viene passato un body. Dal punto di vista della natura della chiamata stessa sarebbe più corrretto, oltre al fatto che una richiesta GET con Jquery (necessaria per Interfaccia Grafica) non prevede body.
+Il motivo della scelta di fare le **POST** è dovuto dal fatto che viene passato un body. Dal punto di vista della natura della chiamata stessa sarebbe più corretto, oltre al fatto che una richiesta GET con Jquery (necessaria per Interfaccia Grafica) non prevede body.
 
 # Formato dati (in JSON)
 
@@ -117,7 +117,7 @@ Le statistiche vengono restituite come JSON in questo modo:
         "Varianza dei Likes": 2742825.0,
         "Minimo dei Retweets": 1459.0,
         "Deviazione Standard dei Retweets": 359.4212,
-        "Varianza dei Retweet": 129183.6
+        "Varianza dei Retweets": 129183.6
     }
 ```
 
@@ -132,9 +132,17 @@ La richiesta di filtraggio avviene passando un JSON nel body della richiesta, fo
 }
 ```
 
-Se il filter_field e il filter_type vengono inseriti erroneamente, viene lanciata l'eccezione [**WrongFilterException**](#eccezioni). 
+Se il `filter_field` e il `filter_type` vengono inseriti erroneamente, viene lanciata l'eccezione [**WrongFilterException**](#eccezioni). 
 
-### Tabella con tutti i filtri_field disponibili
+### Tabella con tutti i filter_field disponibili
+| Campo | Descrizione |
+|--|--|
+| "likes" | Likes |
+| "retweets" | Retweets |
+| "time" | Data |
+| "data" | Tutti i dati (serve per le statistiche) |
+
+### Tabella con tutti i filter_type disponibili
 | Tipo | Descrizione |
 |--|--|
 | "$gt" | Maggiore di |
@@ -143,7 +151,8 @@ Se il filter_field e il filter_type vengono inseriti erroneamente, viene lanciat
 | "$lte" | Minore o uguale di |
 | "$bt" | Compreso tra |
 
-Il filtro "$bt" richiede due parametri. Se non vengono inseriti, viene lanciata l'eccezione [**WrongFilterException**](#eccezioni). 
+Il filtro `"$bt"` richiede due parametri. Se non vengono inseriti, viene lanciata l'eccezione [**WrongFilterException**](#eccezioni). 
+
 **ATTENZIONE!** I parametri devono essere inseriti come JSON array, altrimenti parte l'eccezione appena elencata. Il formato quindi deve essere del tipo:
 
 ```
@@ -169,7 +178,7 @@ Per i filtri sulla data bisogna fare attenzione a scrivere bene il formato della
 
 # Statistiche
 
-Le statistiche possono essere richieste su tutti i dati o su dei dati filtrati allo stesso modo di come si filtrano i Tweet. Per richiedere le statistiche su tutti i dati, il `"filter_field"` deve essere `"data"`:
+Le statistiche possono essere richieste su tutti i dati o su dei dati filtrati allo stesso modo di come si filtrano i Tweet. Per richiedere le statistiche su tutti i dati, il `"filter_field"` deve essere `"data"`. Esempio:
 
 ```
 {
@@ -181,17 +190,17 @@ Le statistiche possono essere richieste su tutti i dati o su dei dati filtrati a
 In questo caso il `filter_type` e i `paramaters` vengono ignorati ma devono essere comunque scritti correttamente altrimenti viene lanciata l'eccezione [**WrongFilterException**](#eccezioni).
 # Eccezioni
 
-`GetTweetException()`: è un’ eccezione che si verifica dal momento in cui non c’ è alcun dato salvato in precedenza, perchè viene restituita dal programma una lista vuota, per cui appare all’ utente un messaggio con scritto: “La lista è vuota!”
+`GetTweetException()`: è un’eccezione che si verifica dal momento in cui non c’è alcun dato salvato in precedenza, perchè viene restituita dal programma una lista vuota, per cui appare all’utente un messaggio con scritto: “La lista è vuota!”.
 
-`WrongFilterException()`: è un’ eccezione che si verifica:
-1.	quando l’ utente inserisce un filtro errato facendo partire il messaggio: “Il filtro inserito non è corretto!”  
-2.	quando l’ utente non mette 2 valori nel filtro `"$bt"` e facendo partire il messaggio: “Filtro $bt errato, sono richiesti 2 valori”
+`WrongFilterException()`: è un’eccezione che si verifica:
+1.	quando l’utente inserisce un filtro errato facendo partire il messaggio: “Il filtro inserito non è corretto!”  
+2.	quando l’utente non mette 2 valori nel filtro `"$bt"` e facendo partire il messaggio: “Filtro $bt errato, sono richiesti 2 valori”.
 
 
 # Front-end
-L'Interfaccia Grafica è stata implementata tramite linguaggio HTML, CSS e Javascript, senza utilizzo di particolari framework (Angular, React, ecc.). Per lo stile è stato usato Bootstrap e per la gestione dei dati JQuery. I grafici sono stati fatti con [Chart.js](https://www.chartjs.org/)
+L'Interfaccia Grafica è stata implementata tramite linguaggio HTML, CSS e Javascript, senza utilizzo di particolari framework (Angular, React, ecc.). Per lo stile è stato usato Bootstrap e per la gestione dei dati JQuery. I grafici sono stati fatti con [Chart.js](https://www.chartjs.org/).
 
-Tramite interfaccia grafica è possibile svolgere tutte le operazioni previste dalla nostra API. In tutte le schermate si può aggiungere un link API Twitter per scaricare i dati. Poi ogni pagina ha le proprie funzioni
+Tramite interfaccia grafica è possibile svolgere tutte le operazioni previste dalla nostra API. In tutte le schermate si può aggiungere un link API Twitter per scaricare i dati. Poi ogni pagina ha le proprie funzioni.
 
 ## Dati
 
@@ -204,7 +213,7 @@ Questa pagina semplicemente mostra tutti i dati scaricati. Quando viene inserito
 ## Filtri
 ![](FrontEnd/readme/filtri.gif)
 
-In questa pagina è possibile applicare il filtro ai dati (per vedere tutti i filtri disponibili [clicca qui](#filtri))
+In questa pagina è possibile applicare il filtro ai dati (per vedere tutti i filtri disponibili [clicca qui](#filtri)).
 Dopo aver premuto il tasto "Invia" la pagina si aggiorna e compare la tabella con l'elenco dei Tweet filtrati. In fondo alla pagina è visibile anche il grafico in funzione del tempo, con tendina a scelta per `likes` o `retweets`.
 
 ## Statistiche
@@ -223,7 +232,7 @@ Una volta scelto il filtro di statistica (operazione necessaria) viene visualizz
 <img src="UMLDiagram/it.univpm.GiAle.twitterProj.app.png">
 </div>
 
-## Package it.univpm.GiAle.twitterProj.controller
+### Package it.univpm.GiAle.twitterProj.controller
 
 <div align="left">
 <img src="UMLDiagram/it.univpm.GiAle.twitterProj.controller.png">
@@ -273,13 +282,11 @@ Il diagramma dei Casi d’Uso mostra le azioni che l’utente può svolgere.
 
 ## Suddivisione dei lavori
 
-Per quanto riguarda l’organizzazione intra-gruppo possiamo dire di essere stati molto in contatto mediante videochiamate e/o chiamate per cui c’è stato un continuo confrontarsi per ogni decisione presa nello sviluppo di questo progetto, tanto è vero che ci siamo completamente dimenticati di fare “commit” giornaliere proprio per questo sentirci quotidianamente. La repo secondaria si trova [qui](https://github.com/alexpaulofficial/old-oop).
+Per quanto riguarda l’organizzazione intra-gruppo possiamo dire di essere stati molto in contatto mediante videochiamate e/o chiamate per cui c’è stato un continuo confrontarsi per ogni decisione presa nello sviluppo di questo progetto, tanto è vero che ci siamo completamente dimenticati di fare “commit” giornaliere in questa repository proprio per il sentirci frequentemente. La repo secondaria che abbiamo usato fino al 15 Giugno circa, si trova [qui](https://github.com/alexpaulofficial/old-oop).
 
 Se dovessimo elencare gli elementi su cui ognuno di noi si è focalizzato maggiormente possiamo dire che:
-*	**Paolucci** si è occupato della stesura del codice in generale concentrandosi poi sullo sviluppo dell’ interfaccia grafica (argomento che ha catturato il suo interesse)
+*	**Paolucci** si è occupato della stesura del codice in generale concentrandosi poi sullo sviluppo dell’interfaccia grafica (argomento che ha catturato il suo interesse)
 
 *	**Verdolini** si è occupato maggiormente delle eccezioni, della struttura dei test e dei diagrammi UML
 
-Questa README stessa la stiamo scrivendo insieme usando Word del pacchetto Office 365 fornitoci dall’Università che permette di collaborare ed apportare modifiche in simultanea allo stesso file.
-
-
+Questa README stessa l'abbiamo scritta insieme usando Word del pacchetto Office 365 fornitoci dall’Università che permette di collaborare ed apportare modifiche in simultanea allo stesso file.
