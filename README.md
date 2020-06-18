@@ -68,7 +68,7 @@ Restituisce un JSON di tutti i dati memorizzati. Se la lista è vuota viene lanc
 > **POST** /data
 
 E’ possibile caricare un JSON di Tweet passato per body. 
-**ATTENZIONE!** Naturalmente deve essere inserito un JSON ben formattato (è possibile verificarlo in questo sito: https://jsonformatter.curiousconcept.com/ o simili). Nel caso in cui non fossero presenti i vari campi del Tweet richiesti (è possibile vedere quali sono tramite `/metadata`) verranno memorizzati come null **senza però dare errore!**.
+**ATTENZIONE!** Naturalmente deve essere inserito un JSON ben formattato (è possibile verificarlo in questo sito: https://jsonformatter.curiousconcept.com/ o simili). Nel caso in cui non fossero presenti i vari campi del Tweet richiesti (è possibile vedere quali sono tramite `/metadata`) verranno memorizzati come null **senza però dare errore!**
 
 > **POST** /data/twitter
 
