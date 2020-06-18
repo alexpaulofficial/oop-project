@@ -18,6 +18,8 @@ import it.univpm.GiAle.twitterProj.model.Tweet;
  * @version 1.1
  */
 public class Filter {
+	private static Object filterFiled;
+
 	/**
 	 * Filtra in base ai Likes (favorite_count)
 	 * 
@@ -34,6 +36,9 @@ public class Filter {
 		// TODO Auto-generated method stub
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
 		for (int i = 0; i < list.size(); i++) {
+			/**Eccezione che parte dal momento in cui i filtri inseriti non sono corretti*/
+			if (!filter.equals("$gt") && !filter.equals("$gte") && !filter.equals("$lt") && !filter.equals("$lte") && !filter.contentEquals("$bt") ) 
+				throw new WrongFilterException("Il filtro inserito non è corretto!");
 			if (filter.equals("$gt") && list.get(i).getFavorite_count() > param.getAsInt()) {
 				filteredList.add(list.get(i));
 			}
@@ -87,6 +92,9 @@ public class Filter {
 		// TODO Auto-generated method stub
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
 		for (int i = 0; i < list.size(); i++) {
+			/**Eccezione che parte dal momento in cui i filtri inseriti non sono corretti*/
+			if (!filter.equals("$gt") && !filter.equals("$gte") && !filter.equals("$lt") && !filter.equals("$lte") && !filter.contentEquals("$bt") ) 
+				throw new WrongFilterException("Il filtro inserito non è corretto!");
 			if (filter.equals("$gt") && list.get(i).getRetweet_count() > param.getAsInt()) {
 				filteredList.add(list.get(i));
 			}
@@ -135,7 +143,10 @@ public class Filter {
 	 * @throws WrongFilterException Caso di filtro errato
 	 */
 	public static ArrayList<Tweet> filterByTime(ArrayList<Tweet> list, String filter, JsonElement param)
-			throws ParseException, WrongFilterException {
+			throws ParseException, WrongFilterException { 
+		/**Eccezione che parte dal momento in cui i filtri inseriti non sono corretti*/
+		if (!filter.equals("$gt") && !filter.equals("$gte") && !filter.equals("$lt") && !filter.equals("$lte") && !filter.contentEquals("$bt") ) 
+			throw new WrongFilterException("Il filtro inserito non è corretto!");
 		// TODO Auto-generated method stub
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
 		/**
