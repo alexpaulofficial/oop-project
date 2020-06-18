@@ -27,7 +27,11 @@ class TestProj {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
+/**
+ * Si va a fare il test per vedere che la lista sia vuota
+ * @throws GetTweetException
+ * @throws WrongFilterException
+ */
 	@Test
 	public void test1() throws GetTweetException, WrongFilterException {
 		tsi = new TweetServiceImpl();
