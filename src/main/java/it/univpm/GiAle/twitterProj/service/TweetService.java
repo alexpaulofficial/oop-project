@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import it.univpm.GiAle.twitterProj.exception.GetTweetException;
+import it.univpm.GiAle.twitterProj.exception.WrongFilterException;
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
 /**
@@ -17,7 +19,7 @@ public interface TweetService {
 	 *
 	 * @return ArrayList dei Tweet
 	 */
-	public abstract ArrayList<Tweet> getTweet(); 
+	public abstract ArrayList<Tweet> getTweet() throws GetTweetException; 
 	
 	/**
 	 * Memorizza l'array di Tweet passato, cancellando quelli già inseriti
@@ -51,7 +53,7 @@ public interface TweetService {
 	 * @return Lista filtrata
 	 * @throws ParseException nel caso di filtraggio per Data
 	 */
-	public abstract ArrayList<Tweet> filtering (String body, ArrayList<Tweet> list) throws ParseException;
+	public abstract ArrayList<Tweet> filtering (String body, ArrayList<Tweet> list) throws ParseException, WrongFilterException;
 	
 	/**
 	 * Scarica i Tweet direttamente dall'API di Twitter

@@ -20,6 +20,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import it.univpm.GiAle.twitterProj.exception.GetTweetException;
+import it.univpm.GiAle.twitterProj.exception.WrongFilterException;
 import it.univpm.GiAle.twitterProj.filters.Filter;
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
@@ -36,8 +38,11 @@ public class TweetServiceImpl implements TweetService {
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getTweet()
 	 */
 	@Override
-	public ArrayList<Tweet> getTweet(){
+	public ArrayList<Tweet> getTweet() throws GetTweetException{
 		// TODO Auto-generated method stub
+		/**Eccezione nel caso in cui la lista sia vuota*/
+		if (myTweetList.isEmpty())
+			throw new GetTweetException("La lista è vuota!");
 
 		return myTweetList;
 	}
@@ -95,12 +100,17 @@ public class TweetServiceImpl implements TweetService {
 	 * tutti i dati in modo da poter usare esattamente questa funzione anche per le statistiche
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#filtering(String, ArrayList)
 	 */
-	public ArrayList<Tweet> filtering (String body, ArrayList<Tweet> list) throws ParseException {
+	public ArrayList<Tweet> filtering (String body, ArrayList<Tweet> list) throws ParseException, WrongFilterException {
 		JsonObject gson = new Gson().fromJson(body, JsonObject.class);
 		String filterFiled = gson.get("filter_field").getAsString();
 		String filterType = gson.get("filter_type").getAsString();
 		JsonElement param = gson.get("parameters");
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
+		
+		/**Eccezione che parte dal momento in cui i filtri inseriti non sono corretti*/
+		if (!filterFiled.equals("likes") && !filterFiled.equals("retweets") && !filterFiled.equals("time") && !filterFiled.equals("data") ) 
+			throw new WrongFilterException("Il filtro inserito non è corretto!");
+		
 		if (filterFiled.equals("likes")) {
 			filteredList = Filter.filterByLikes(list, filterType, param);
 		}

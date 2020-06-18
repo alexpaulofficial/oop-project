@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import com.google.gson.JsonElement;
 
+import it.univpm.GiAle.twitterProj.exception.WrongFilterException;
 import it.univpm.GiAle.twitterProj.model.Tweet;
 
 /**
@@ -28,7 +29,7 @@ public class Filter {
 	 * @param param parametri dei filtri
 	 * @return Lista filtrata
 	 */
-	public static ArrayList<Tweet> filterByLikes(ArrayList<Tweet> list, String filter, JsonElement param) {
+	public static ArrayList<Tweet> filterByLikes(ArrayList<Tweet> list, String filter, JsonElement param) throws WrongFilterException {
 		// TODO Auto-generated method stub
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
 		for (int i = 0; i < list.size(); i++) {
@@ -45,9 +46,9 @@ public class Filter {
 				filteredList.add(list.get(i));
 			}
 			if (filter.equals("$bt")) {
-				if (!param.isJsonArray()) {
-					// eccezione
-					return null;
+				if (!param.isJsonArray() && param.getAsJsonArray().size() != 2) {
+					/**Eccezione nel caso in cui sia sbagliato il filtro $bt*/
+					throw new WrongFilterException("Filtro $bt errato, sono richiesti 2 valori");
 				} else {
 					/*
 					 * Se sono inseriti in ordine errato (prima un paramatro maggiore e poi un minore) viene
@@ -78,7 +79,7 @@ public class Filter {
 	 * @param param parametri dei filtri
 	 * @return Lista filtrata
 	 */
-	public static ArrayList<Tweet> filterByRetweet(ArrayList<Tweet> list, String filter, JsonElement param) {
+	public static ArrayList<Tweet> filterByRetweet(ArrayList<Tweet> list, String filter, JsonElement param) throws WrongFilterException {
 		// TODO Auto-generated method stub
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
 		for (int i = 0; i < list.size(); i++) {
@@ -96,8 +97,8 @@ public class Filter {
 			}
 			if (filter.equals("$bt")) {
 				if (!param.isJsonArray()) {
-					// eccezione
-					return null;
+					/**Eccezione nel caso in cui sia sbagliato il filtro $bt*/
+					throw new WrongFilterException("Filtro $bt errato, sono richiesti 2 valori");
 				} else {
 					if (param.getAsJsonArray().get(0).getAsInt() <= param.getAsJsonArray().get(1).getAsInt()) {
 						if (list.get(i).getRetweet_count() >= param.getAsJsonArray().get(0).getAsInt()
@@ -129,7 +130,7 @@ public class Filter {
 	 * @throws ParseException nel caso di errore nel parsing della data
 	 */
 	public static ArrayList<Tweet> filterByTime(ArrayList<Tweet> list, String filter, JsonElement param)
-			throws ParseException {
+			throws ParseException, WrongFilterException {
 		// TODO Auto-generated method stub
 		ArrayList<Tweet> filteredList = new ArrayList<Tweet>();
 		/*
@@ -191,8 +192,8 @@ public class Filter {
 		if (filter.equals("$bt")) {
 			for (int i = 0; i < list.size(); i++) {
 				if (!param.isJsonArray()) {
-					// eccezione
-					return null;
+					/**Eccezione in cui il filtro $bt non sia corretto*/
+					throw new WrongFilterException("Filtro $bt errato, sono richiesti 2 valori");
 				} else {
 					Date dateFilter1;
 					try {

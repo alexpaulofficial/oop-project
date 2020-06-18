@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.univpm.GiAle.twitterProj.exception.GetTweetException;
+import it.univpm.GiAle.twitterProj.exception.WrongFilterException;
 import it.univpm.GiAle.twitterProj.filters.Stats;
 import it.univpm.GiAle.twitterProj.model.Tweet;
 import it.univpm.GiAle.twitterProj.service.TweetService;
@@ -45,9 +47,10 @@ public class AppController {
 	 * 
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getTweet()
 	 * @return lista di tutti i tweet
+	 * @throws GetTweetException 
 	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
-	public ResponseEntity<Object> getTweet() {
+	public ResponseEntity<Object> getTweet() throws GetTweetException {
 		return new ResponseEntity<>(service.getTweet(), HttpStatus.OK);
 	}
 
@@ -93,9 +96,11 @@ public class AppController {
 	 * @param bodyFilter Il filtro richiesto in formato JSON
 	 * @return Elenco dei tweet filtrati
 	 * @throws ParseException  nel caso del filtro della data con formato sbagliato
+	 * @throws GetTweetException 
+	 * @throws WrongFilterException 
 	 */
 	@PostMapping("/data/filter")
-	public ResponseEntity<Object> filtering(@RequestBody String bodyFilter) throws ParseException {
+	public ResponseEntity<Object> filtering(@RequestBody String bodyFilter) throws ParseException, WrongFilterException, GetTweetException {
 		
 		return new ResponseEntity<Object> (service.filtering(bodyFilter, service.getTweet()), HttpStatus.OK);
 	}
@@ -107,9 +112,11 @@ public class AppController {
 	 * @param bodyFilter Statistiche richieste scritte in formato JSON (come i filtri)
 	 * @return Elenco delle statistiche
 	 * @throws ParseException nel caso di filtro per Data
+	 * @throws GetTweetException 
+	 * @throws WrongFilterException 
 	 */
 	@PostMapping("/data/stats")
-	public ResponseEntity<Object> stats(@RequestBody String bodyFilter) throws ParseException {
+	public ResponseEntity<Object> stats(@RequestBody String bodyFilter) throws ParseException, WrongFilterException, GetTweetException {
 		return new ResponseEntity<Object> (Stats.stats(service.filtering(bodyFilter, service.getTweet())), HttpStatus.OK);
 	}
 

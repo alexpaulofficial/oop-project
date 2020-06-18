@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Alessio Paolucci">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Twitter Project</title>
+
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <!-- Bootstrap core CSS -->
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark text-white">
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">Twitter Project</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+        <form id="searchForm" class="bg-dark d-flex w-100 shadow collapse">
+            <input class="form-control form-control-dark d-flex" id="search" name="search" type="text" placeholder="Search" aria-label="Search">
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <button class="btn btn-danger" type="submit">Search</button>
+                </li>
+            </ul>
+
+        </form>
+    </nav>
+
+    <script src="js/search.js"></script>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <span data-feather="home"></span> Data
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="filter.html">
+                                <span data-feather="file"></span> Filters <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="stats.html">
+                                <span data-feather="shopping-cart"></span> Stats
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <form id="form-filtri" class="form-inline">
+                    <select class="custom-select mr-sm-2" id="field_select">
+            <option selected>Field</option>
+            <option value="likes">Likes</option>
+            <option value="retweets">Retweets</option>
+            <option value="time">Time</option>
+          </select>
+
+                    <select class="custom-select mr-sm-2" id="type_select">
+            <option selected>Type</option>
+            <option value="$gt">Maggiore</option>
+            <option value="$lt">Minore</option>
+            <option value="$gte">Maggiore =</option>
+            <option value="$lte">Minore =</option>
+            <option value="$bt">Compreso tra</option>
+          </select>
+
+                    <input type="text" class="form-control mr-sm-2" id="parametri" placeholder="Parametri" />
+                    <input type="hidden" class="form-control mr-sm-2" id="parametri2" placeholder="Parametro 2" />
+                    <div class="col-auto my-1">
+                        <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                </form>
+
+                <table id="filteredData" class="table table-dark">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Testo</th>
+                            <th>Creato il</th>
+                            <th>Likes</th>
+                            <th>Retweets</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <script src="js/filter.js"></script>
+
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Grafico by </h1>
+                    <div class="d-flex">
+                        <select class="custom-select" id="graph_sel">
+              <option value="like">Likes</option>
+              <option value="retweet">Retweets</option>
+            </select>
+                    </div>
+                </div>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+                <footer class="page-footer font-small">
+
+                    <!-- Copyright -->
+                    <div class="footer-copyright text-center py-3">© 2020 Copyright - Graphics by
+                        <a class="h20" href="https://alexpaulofficial.com/"> Alex Paul</a> - Based on
+                        <a class="h20" href="https://github.com/alexpaulofficial/oop-project"> Twitter GianAle's API</a>
+                    </div>
+                    <!-- Copyright -->
+
+                </footer>
+
+            </main>
+        </div>
+
+    </div>
+</body>
+
+</html>
