@@ -122,7 +122,7 @@ public class AppController {
 
 
 	/**
-	 * Restituisce i Meta Data della classe Tweet
+	 * Restituisce i metadata della classe Tweet
 	 *
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getMetadata(Class myClass)
 	 * @return I metadata in JSON
