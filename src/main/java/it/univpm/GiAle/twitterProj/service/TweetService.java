@@ -64,8 +64,8 @@ public interface TweetService {
 	 *
 	 * @param url URL API completo
 	 * @return JSON in Stringa da inserire
-	 * @throws MalformedURLException per errore nell'URL
-	 * @throws IOException Signals per errori di I/O
+	 * @throws MalformedURLException Errore nell'URL
+	 * @throws IOException Caso di errori I/O
 	 */
 	public abstract String getFromTwitter (String url) throws MalformedURLException, IOException;
 }

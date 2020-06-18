@@ -30,7 +30,7 @@ import it.univpm.GiAle.twitterProj.service.TweetService;
 @RestController
 
 /**
- * Il Controller gestisce le richieste varie di GET e PUT collegandosi poi al Service
+ * Il Controller gestisce le richieste varie di GET e POST collegandosi poi al Service
  * 
  * @see it.univpm.GiAle.twitterProj.service.TweetService
  */
@@ -47,7 +47,7 @@ public class AppController {
 	 * 
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getTweet()
 	 * @throws GetTweetException Caso lista vuota
-     * @return lista di tutti i tweet
+     * @return Lista di tutti i tweet
 	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	public ResponseEntity<Object> getTweet() throws GetTweetException {
@@ -71,7 +71,7 @@ public class AppController {
 	}
 	
 	/**
-	 * Scarica i dati dal link inserito nel body (API Twitter)
+	 * Scarica i dati dal link inserito nel body (dall'API Twitter)
 	 *
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#addJSON(String)
 	 * @see it.univpm.GiAle.twitterProj.service.TweetService#getFromTwitter(String)

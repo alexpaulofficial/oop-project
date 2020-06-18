@@ -10,6 +10,11 @@ import it.univpm.GiAle.twitterProj.exception.WrongFilterException;
 import it.univpm.GiAle.twitterProj.exception.GetTweetException;
 import it.univpm.GiAle.twitterProj.service.TweetServiceImpl;
 
+/**
+ * Questo test verifica che ritorni una lista vuota nel caso in cui non
+ * siano stati scaricati dei Tweet
+ * @author Verdolini Gian Paolo, Paolucci Alessio
+ */
 class TestProj {
 	TweetServiceImpl tsi;
 
