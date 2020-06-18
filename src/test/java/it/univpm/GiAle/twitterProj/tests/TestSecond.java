@@ -2,7 +2,7 @@ package it.univpm.GiAle.twitterProj.tests;
 
 /**
  * Questo test serve per verificare che parta l' eccezione nel caso in cui venga inserito 
- * un nome sbagliatonel filtro
+ * un nome sbagliato nel filtro
  * @author Verdolini Gian Paolo, Paolucci Alessio
  */
 
