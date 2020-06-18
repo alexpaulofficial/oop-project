@@ -63,7 +63,7 @@ public class Stats {
 		statMap.put("Minimo dei Retweets", minRetweet);
 		statMap.put("Massimo dei Retweets", maxRetweet);
 		statMap.put("Varianza dei Likes", varianceLikes);
-		statMap.put("Varianza dei Retweet", varianceRetweets);
+		statMap.put("Varianza dei Retweets", varianceRetweets);
 		statMap.put("Deviazione Standard dei Likes", standardDeviationLikes);
 		statMap.put("Deviazione Standard dei Retweets", standardDeviationRetweets);
 		
